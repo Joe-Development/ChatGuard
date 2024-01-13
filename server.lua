@@ -20,10 +20,10 @@ AddEventHandler('chatMessage', function(source, name, message)
             local embed = {
                 title = "Language Filter Alert",
                 fields = {
-                    { name = "Player: ", value = playerName },
-                    { name = "Discord ID: ", value = playerDiscordId },
-                    { name = "FiveM ID: ", value = playerFiveMId },
-                    { name = "Word/Sentence: ", value = word }
+                    { name = "Player: ", value = playerName or "Unknown" },
+                    { name = "Discord ID: ", value = playerDiscordId or "Unknown" },
+                    { name = "FiveM ID: ", value = playerFiveMId or "Unknown"},
+                    { name = "Word/Sentence: ", value = word or "Unknown"}
                 },
                 color = 16711680 
             }
