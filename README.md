@@ -1,7 +1,5 @@
 # Language Filter Script for FiveM Lua
 
-[MIT License](https://github.com/Joe-Development/FiveM-language-filter/blob/main/LICENSE).
-
 A language filter script for FiveM Lua that helps prevent the usage of inappropriate language in your server. This script also includes integrated Discord logging to keep track of filtered messages.
 
 ## Features
@@ -12,10 +10,9 @@ A language filter script for FiveM Lua that helps prevent the usage of inappropr
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/your-username/repo-name/releases) page.
-2. Extract the downloaded ZIP file.
-3. Copy the `FiveM-language-filter` folder into your FiveM server's `resources` directory.
-4. Add `ensure FiveM-language-filter` to your server.cfg file.
+1. Extract the downloaded ZIP file.
+2. Copy the `FiveM-language-filter` folder into your FiveM server's `resources` directory.
+3. Add `ensure FiveM-language-filter` to your server.cfg file.
 
 ## Configuration
 
@@ -29,6 +26,3 @@ Once the script is installed and configured, it will automatically filter out an
 
 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
 
-## License
-
-This project is licensed under the [MIT License](https://github.com/Joe-Development/FiveM-language-filter/blob/main/LICENSE).
