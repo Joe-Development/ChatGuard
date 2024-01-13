@@ -25,7 +25,10 @@ AddEventHandler('chatMessage', function(source, name, message)
                     { name = "FiveM ID: ", value = playerFiveMId or "Unknown"},
                     { name = "Word/Sentence: ", value = word or "Unknown"}
                 },
-                color = 16711680 
+                color = 16711680,
+                footer = {
+                    text = "Language Filter - Made by JoeV2"
+                }
             }
 
             PerformHttpRequest(discordWebhook, function(statusCode, response, headers) end, 'POST', json.encode({embeds = {embed}}), { ['Content-Type'] = 'application/json' })
