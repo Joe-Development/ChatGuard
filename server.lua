@@ -30,7 +30,7 @@ AddEventHandler("chatMessage", function(source, name, message)
     
     for _, word in ipairs(badWords) do
         if string.find(message:lower(), word:lower(), 1, true) then
-            DropPlayer(source, "[ChatGuard] You have been kicked for using [ " .. word .. " ]. Please don't use it again.")
+            DropPlayer(source, "[ChatGuard] You have been kicked for using A Blacklisted Word. Please don't use it again.")
             CancelEvent()
             return
         end
