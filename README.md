@@ -1,2 +1,2 @@
 # ChatGuard
-## the only script you need to protect your chat
+### the only script you need to protect your chat
