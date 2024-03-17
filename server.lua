@@ -17,7 +17,7 @@ AddEventHandler("chatMessage", function(source, name, message)
                 cache[name].count = cache[name].count + 1
                 if cache[name].count > Config.MessageActivation then
                     local remainingTime = (Config.cooldownTime * 1000) - elapsedTime
-                    TriggerClientEvent("chat:addMessage", source, {args = {"~r~[ChatGuard]", "~w~Your message has been blocked due to spamming. Please wait " .. math.floor(remainingTime / 1000) .. " seconds before sending another message."}})
+                    TriggerClientEvent("chat:addMessage", source, {args = {"~r~[ChatGuard]", "~w~Your message has been blocked due to spamming. Please wait ~b~[" .. math.floor(remainingTime / 1000) .. "]~w~ seconds before sending another message."}})
                     CancelEvent()
                     return
                 end
