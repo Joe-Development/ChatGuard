@@ -1,38 +1,36 @@
-local badWords = Config.badwords
-local discordWebhook = Config.badwords.discord.discordWebhook
+local cache = {}
+local cooldownTime = Config.cooldownTime * 1000
+local badWords = Config.blacklistedWords
 
-AddEventHandler('chatMessage', function(source, name, message)
-    for _, word in ipairs(badWords) do
-        if string.find(message, word, 1, true) then
-            local player = GetPlayerIdentifiers(source)
-            local playerName = GetPlayerName(source)
-            local playerDiscordId = nil
-            local playerFiveMId = nil
-
-            for _, identifier in ipairs(player) do
-                if string.find(identifier, "discord:") then
-                    playerDiscordId = string.gsub(identifier, "discord:", "")
-                elseif string.find(identifier, "fivem:") then
-                    playerFiveMId = string.gsub(identifier, "fivem:", "")
-                end
-            end
-
-            local embed = {
-                title = "Language Filter Alert",
-                fields = {
-                    { name = "Player: ", value = playerName or "Unknown" },
-                    { name = "Discord ID: ", value = playerDiscordId or "Unknown" },
-                    { name = "FiveM ID: ", value = playerFiveMId or "Unknown"},
-                    { name = "Word/Sentence: ", value = word or "Unknown"}
-                },
-                color = 16711680,
-                footer = {
-                    text = "Language Filter - Made by JoeV2"
-                }
+AddEventHandler("chatMessage", function(source, name, message)
+    local currentTime = GetGameTimer()
+    
+    if Config.spamProtection then
+        if not cache[name] then
+            cache[name] = {
+                count = 1,
+                lastMessageTime = currentTime
             }
-
-            PerformHttpRequest(discordWebhook, function(statusCode, response, headers) end, 'POST', json.encode({embeds = {embed}}), { ['Content-Type'] = 'application/json' })
-            DropPlayer(source, "[LanguageFilter] You have been kicked for using [ " .. word .. " ] Please don't use it again.")
+        else
+            local elapsedTime = currentTime - cache[name].lastMessageTime
+            if elapsedTime < cooldownTime then
+                cache[name].count = cache[name].count + 1
+                if cache[name].count > Config.MessageActivation then
+                    local remainingTime = (Config.cooldownTime * 1000) - elapsedTime
+                    TriggerClientEvent("chat:addMessage", source, {args = {"~r~[ChatGuard]", "~w~Your message has been blocked due to spamming. Please wait " .. math.floor(remainingTime / 1000) .. " seconds before sending another message."}})
+                    CancelEvent()
+                    return
+                end
+            else
+                cache[name].count = 1
+                cache[name].lastMessageTime = currentTime
+            end
+        end
+    end
+    
+    for _, word in ipairs(badWords) do
+        if string.find(message:lower(), word:lower(), 1, true) then
+            DropPlayer(source, "[ChatGuard] You have been kicked for using [ " .. word .. " ]. Please don't use it again.")
             CancelEvent()
             return
         end
